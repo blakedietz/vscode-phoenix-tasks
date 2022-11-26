@@ -1,1 +1,171 @@
-Migrating to Phoenix LiveView 0.18
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Nuke and pave",
+      "type": "shell",
+      "command": "rm -rf ./.elixir-ls; rm -rf ./deps; rm -rf ./_build; mix local.rebar --force; mix local.hex --force; mix deps.clean; mix deps.get; mix deps.compile; mix ecto.reset; iex -S mix phx.server",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "CI code quality check",
+      "type": "shell",
+      "command": "mix compile --force --warnings-as-errors; mix format --check-formatted; mix credo suggest --min-priority high",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "iex -S mix phx.server",
+      "type": "shell",
+      "command": "iex -S mix phx.server",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": ["$mixCompileError"]
+    },
+    {
+      "label": "mix format",
+      "type": "shell",
+      "command": "mix format",
+      "problemMatcher": []
+    },
+    {
+      "label": "mix phx.server",
+      "type": "shell",
+      "command": "mix phx.server",
+      "problemMatcher": ["$mixCompileError"]
+    },
+    {
+      "label": "mix ecto.reset",
+      "type": "shell",
+      "command": "mix ecto.reset",
+      "problemMatcher": []
+    },
+    {
+      "label": "mix test.reset",
+      "command": "mix test.reset",
+      "type": "shell",
+      "group": "test",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      },
+      "problemMatcher": [
+        "$mixCompileError",
+        "$mixCompileWarning",
+        "$mixTestFailure"
+      ]
+    },
+    {
+      "label": "mix test",
+      "command": "mix test",
+      "type": "shell",
+      "group": "test",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      },
+      "problemMatcher": [
+        "$mixCompileError",
+        "$mixCompileWarning",
+        "$mixTestFailure"
+      ]
+    },
+    {
+      "label": "Run Current Test",
+      "command": "mix test ${relativeFile}:${lineNumber}",
+      "type": "shell",
+      "group": "test",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      },
+      "problemMatcher": [
+        "$mixCompileError",
+        "$mixCompileWarning",
+        "$mixTestFailure"
+      ]
+    },
+    {
+      "label": "Test Current File",
+      "command": "mix test ${relativeFile}",
+      "group": "test",
+      "type": "shell",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      },
+      "problemMatcher": [
+        "$mixCompileError",
+        "$mixCompileWarning",
+        "$mixTestFailure"
+      ]
+    },
+    {
+      "label": "Add Saved Test",
+      "group": "test",
+      "type": "shell",
+      "command": "echo -n ${relativeFile}:${lineNumber} > ${workspaceRoot}/.vscode/STORED_TEST",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "Add Saved File Test",
+      "group": "test",
+      "type": "shell",
+      "command": "echo -n ${relativeFile} > ${workspaceRoot}/.vscode/STORED_TEST",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "Delete Saved Test",
+      "group": "test",
+      "type": "shell",
+      "command": "rm ${workspaceRoot}/.vscode/STORED_TEST",
+      "presentation": {
+        "echo": true,
+        "reveal": "never",
+        "focus": false,
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "Run Saved Test",
+      "command": "mix test $(cat ${workspaceRoot}/.vscode/STORED_TEST)",
+      "type": "shell",
+      "group": "test",
+      "problemMatcher": [
+        "$mixCompileError",
+        "$mixCompileWarning",
+        "$mixTestFailure"
+      ],
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      }
+    }
+  ]
+}
